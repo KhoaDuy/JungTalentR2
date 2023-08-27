@@ -44,12 +44,24 @@ btnReturnTop.addEventListener("click", () => {
 })
 // Set sections as active
 let linkSec = document.querySelectorAll("a");
+let check = [0,0,0];
 window.addEventListener("scroll",() => {
     for(let i = 0; i < 3; i++){
         let distanceTop = listSection[i].getBoundingClientRect().top.toFixed();
-        let elementHeight = listSection[i].offsetHeight*0.85;
-        if(distanceTop >= (-1)*elementHeight &&  distanceTop <= 100) linkSec[i].classList.add("menuLink-dis");
-        else linkSec[i].classList.remove("menuLink-dis");
+        let elementHeight = listSection[i].offsetHeight*0.88;
+        if(distanceTop >= (-1)*elementHeight &&  distanceTop <= 100){
+            linkSec[i].classList.add("menuLink-dis");
+            check[i] = 1;
+            for(let j = 0; j < 3;j++){
+                if(j!=i && check[j] == 1){
+                    linkSec[j].classList.remove("menuLink-dis");
+                    check[j] = 0;
+                }
+            }
+        }
+        else{
+            linkSec[i].classList.remove("menuLink-dis");
+        }
     }
 })
 
