@@ -1,6 +1,10 @@
 // build the nav
 let listSection = document.getElementsByTagName("section");
 let navBar = document.getElementById("navbar__list");
+let btnReturnTop = document.querySelector(".btn-Returntop");
+let check = [0,0,0,0];
+let navbarMenu = document.getElementsByClassName("navbar__menu");
+let toScroll;
 for(let i = 1; i <= listSection.length; i++){
     // Build menu 
     const menuNode1 = document.createElement("li");
@@ -10,31 +14,26 @@ for(let i = 1; i <= listSection.length; i++){
     menuNode2.addEventListener('click', function (event) {
         event.preventDefault();
         listSection[i - 1].scrollIntoView({ behavior: 'smooth' });
-      });
+    });
     menuNode2.classList.add('menu__link');
     menuNode2.textContent = "Section " + i;
     navBar.appendChild(menuNode1);
 }
-
-// Show / Hide menu bar
-let navbarMenu = document.getElementById("navbar__list");
-let toScroll;
+let linkSec = document.querySelectorAll("a");
 window.onscroll = () => {
-    navbarMenu.classList.remove("dis-none");
-    window.clearTimeout(toScroll);
-    toScroll = setTimeout(() => {
-        navbarMenu.classList.add("dis-none");
-    }, 3000);
-}
-// Button return to top
-let btnReturnTop = document.querySelector(".btn-Returntop");
-window.onscroll = () => {
-    if(window.scrollY >=  window.screen.availHeight){
+    // Button return to top
+    if (window.scrollY >= window.screen.availHeight) {
         btnReturnTop.classList.remove("dis-none");
     }
-    else{
+    else {
         btnReturnTop.classList.add("dis-none");
     }
+    // Show / Hide menu bar
+    window.clearTimeout(toScroll);
+    navbarMenu[0].classList.remove("dis-none");
+    toScroll = setTimeout(() => {
+        navbarMenu[0].classList.add("dis-none");
+    }, 3000);
 }
 btnReturnTop.addEventListener("click", () => {
     window.scrollTo({
@@ -43,16 +42,14 @@ btnReturnTop.addEventListener("click", () => {
     });
 })
 // Set sections as active
-let linkSec = document.querySelectorAll("a");
-let check = [0,0,0];
 window.addEventListener("scroll",() => {
-    for(let i = 0; i < 3; i++){
+    for(let i = 0; i < 4; i++){
         let distanceTop = listSection[i].getBoundingClientRect().top.toFixed();
         let elementHeight = listSection[i].offsetHeight*0.88;
         if(distanceTop >= (-1)*elementHeight &&  distanceTop <= 100){
             linkSec[i].classList.add("menuLink-dis");
             check[i] = 1;
-            for(let j = 0; j < 3;j++){
+            for(let j = 0; j < 4;j++){
                 if(j!=i && check[j] == 1){
                     linkSec[j].classList.remove("menuLink-dis");
                     check[j] = 0;
@@ -64,7 +61,6 @@ window.addEventListener("scroll",() => {
         }
     }
 })
-
 /**
  * End Main Functions
  * Begin Events

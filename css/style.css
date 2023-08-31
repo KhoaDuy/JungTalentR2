@@ -86,6 +86,7 @@ section {
     background: #333;
     color: #fff;
     transition: ease 0.3s all;
+    cursor: pointer;
 }
 
 .page__footer p{
@@ -242,4 +243,7 @@ section.your-active-class .landing__container::after {
     height: 40px;
     right:20px;
     transition: all 0.3s ease-in-out;
+}
+.btn-Returntop:hover{
+    cursor: pointer;
 }
